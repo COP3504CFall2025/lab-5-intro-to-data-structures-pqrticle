@@ -159,6 +159,27 @@ void ABDQ<T>::pushFront(const T& item) {
 }
 
 template <typename T>
+void ABDQ<T>::pushBack(const T& item) {
+    if (size_ >= capacity_) {
+        std::size_t newCapacity = capacity_ * SCALE_FACTOR;
+        T* newData = new T[newCapacity];
+
+        for (std::size_t i = 0; i < size_; ++i)
+            newData[i] = data_[(front_ + i) % capacity_];
+
+        delete[] data_;
+        data_ = newData;
+        capacity_ = newCapacity;
+        front_ = 0;
+        back_ = size_;
+    }
+
+    data_[back_] = item;
+    back_ = (back_ + 1) % capacity_;
+    ++size_;
+}
+
+template <typename T>
 T ABDQ<T>::popFront() {
     if (size_ == 0) throw std::runtime_error("deque empty");
 
@@ -212,14 +233,7 @@ T ABDQ<T>::popBack() {
     return val;
 }
 
-template <typename T>
-T ABDQ<T>::popBack() {
-    if (size_ == 0) throw std::runtime_error("deque empty");
-    back_ = (back_ + capacity_ - 1) % capacity_;
-    T val = data_[back_];
-    --size_;
-    return val;
-}
+
 
 template <typename T>
 const T& ABDQ<T>::front() const {
