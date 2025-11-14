@@ -47,6 +47,8 @@ public:
     void PrintForward() const; //added myself
     void PrintReverse() const;
 
+    std::size_t getMaxCapacity() const noexcept; // seems like i need this
+
 };
 
 template <typename T>
@@ -263,4 +265,10 @@ template <typename T>
 void ABDQ<T>::PrintReverse() const {
     for (std::size_t i = 0; i < size_; ++i)
         std::cout << data_[(back_ + capacity_ - 1 - i) % capacity_] << "\n";
+}
+
+//ig i need to add this based off what gradescope shows
+template <typename T>
+std::size_t ABDQ<T>::getMaxCapacity() const noexcept {
+    return capacity_;
 }
