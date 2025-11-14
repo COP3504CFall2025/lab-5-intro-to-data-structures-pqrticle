@@ -31,6 +31,9 @@ public:
     void PrintReverse() const;
 };
 
+template <typename T>
+LLS<T>::LLS() {}
+
 template<typename T>
 void LLS<T>::push(const T& item) {
     list.pushFront(item);
