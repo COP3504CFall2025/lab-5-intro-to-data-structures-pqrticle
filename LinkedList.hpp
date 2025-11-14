@@ -13,6 +13,7 @@ public:
 
 	// Accessors
 	[[nodiscard]] unsigned int getSize() const; //done
+	unsigned int getCount() const { return count; } //so weird
 	
 	typename LinkedList<T>::Node* getHead(); // i had to manually update these 4 caues it kept throwing an error
 	const typename LinkedList<T>::Node* getHead() const;
@@ -26,7 +27,7 @@ public:
 	// Removal
 	bool removeHead(); //done
 	bool removeTail(); //done
-	void Clear(); //done
+	void clear(); //done
 
 	// Operators
 	LinkedList<T>& operator=(LinkedList<T>&& other) noexcept;//done
@@ -94,7 +95,7 @@ LinkedList<T>::LinkedList(LinkedList<T>&& other) noexcept {
 
 template <typename T>
 LinkedList<T>::~LinkedList() {
-	Clear();
+	clear();
 }
 
 template <typename T>
@@ -102,7 +103,7 @@ LinkedList<T>& LinkedList<T>::operator=(const LinkedList<T>& rhs) {
 	if (this == &rhs) {
 		return *this;
 	}
-	Clear();
+	clear();
 
 	Node* temp = rhs.head;
 	while (temp != nullptr) { //same as before
@@ -117,7 +118,7 @@ LinkedList<T>& LinkedList<T>::operator=(LinkedList<T>&& other) noexcept {
 	if (this == &other) {
 		return *this;
 	}
-	Clear();
+	clear();
 
 	head = other.head;
 	tail = other.tail;
@@ -203,7 +204,7 @@ bool LinkedList<T>::removeTail() {
 }
 
 template <typename T>
-void LinkedList<T>::Clear() {
+void LinkedList<T>::clear() {
 	Node* temp = head;
 
 	while (temp != nullptr) {
