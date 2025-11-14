@@ -135,22 +135,25 @@ ABDQ<T>::~ABDQ() {
     delete[] data_;
 }
 
+//had to fix these 2
 template <typename T>
 void ABDQ<T>::pushFront(const T& item) {
     if (size_ >= capacity_) {
         std::size_t newCapacity = capacity_ * SCALE_FACTOR;
         T* newData = new T[newCapacity];
+
         for (std::size_t i = 0; i < size_; ++i)
-            newData[i + 1] = data_[i]; //shift here btw
+            newData[i] = data_[(front_ + i) % capacity_];
+
         delete[] data_;
         data_ = newData;
         capacity_ = newCapacity;
-    } else {
-        for (std::size_t i = size_; i > 0; --i)
-            data_[i] = data_[i - 1];
+        front_ = 0;
+        back_ = size_;
     }
 
-    data_[0] = item;
+    front_ = (front_ + capacity_ - 1) % capacity_;
+    data_[front_] = item;
     ++size_;
 }
 
@@ -159,14 +162,19 @@ void ABDQ<T>::pushBack(const T& item) {
     if (size_ >= capacity_) {
         std::size_t newCapacity = capacity_ * SCALE_FACTOR;
         T* newData = new T[newCapacity];
+
         for (std::size_t i = 0; i < size_; ++i)
-            newData[i] = data_[i];
+            newData[i] = data_[(front_ + i) % capacity_];
+
         delete[] data_;
         data_ = newData;
         capacity_ = newCapacity;
+        front_ = 0;
+        back_ = size_;
     }
 
-    data_[size_] = item;
+    data_[back_] = item;
+    back_ = (back_ + 1) % capacity_;
     ++size_;
 }
 
@@ -205,18 +213,15 @@ std::size_t ABDQ<T>::getSize() const noexcept {
     return size_;
 }
 
+
+//fixed these as well
 template <typename T>
 void ABDQ<T>::PrintForward() const {
-    for (std::size_t i = 0; i < size_; ++i) {
-        std::cout << data_[i] << "\n";
-    }
-    std::cout << std::endl;
+    for (std::size_t i = 0; i < size_; ++i)
+        std::cout << data_[(front_ + i) % capacity_] << "\n";
 }
-
 template <typename T>
 void ABDQ<T>::PrintReverse() const {
-    for (std::size_t i = size_; i > 0; --i) {
-        std::cout << data_[i - 1] << "\n";
-    }
-    std::cout << std::endl;
+    for (std::size_t i = 0; i < size_; ++i)
+        std::cout << data_[(back_ + capacity_ - 1 - i) % capacity_] << "\n";
 }
