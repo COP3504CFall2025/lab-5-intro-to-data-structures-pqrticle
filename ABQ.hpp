@@ -132,18 +132,26 @@ void ABQ<T>::enqueue(const T& data) {
     array_[curr_size_++] = data;
 }
 
+//still cant belive i was looking at the wrong files the whole time
 template<typename T>
 T ABQ<T>::dequeue() {
     if (curr_size_ == 0)
         throw std::runtime_error("Queue is empty");
-
     T result = array_[0];
-
-    // shift elements left
     for (size_t i = 1; i < curr_size_; ++i)
         array_[i - 1] = array_[i];
-
     --curr_size_;
+
+    if (curr_size_ <= capacity_ / 4 && capacity_ > 1) {
+        size_t new_capacity = capacity_ / 2;
+        T* new_array = new T[new_capacity];
+        for (size_t i = 0; i < curr_size_; ++i)
+            new_array[i] = array_[i];
+        delete[] array_;
+        array_ = new_array;
+        capacity_ = new_capacity;
+    }
+
     return result;
 }
 
