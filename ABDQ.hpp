@@ -6,6 +6,7 @@
 #include <utility>
 #include <iostream>
 
+// i should mention i referenced this for clarity https://www.geeksforgeeks.org/dsa/introduction-to-circular-queue/
 
 template <typename T>
 class ABDQ : public DequeInterface<T> {
@@ -158,9 +159,17 @@ void ABDQ<T>::pushFront(const T& item) {
 }
 
 template <typename T>
-void ABDQ<T>::pushBack(const T& item) {
-    if (size_ >= capacity_) {
-        std::size_t newCapacity = capacity_ * SCALE_FACTOR;
+T ABDQ<T>::popFront() {
+    if (size_ == 0) throw std::runtime_error("deque empty");
+
+    T val = data_[front_];
+    front_ = (front_ + 1) % capacity_;
+    --size_;
+
+    // i made this to fix the sizing problem directly
+    if (size_ <= capacity_ / 4 && capacity_ > 1) {
+
+        std::size_t newCapacity = capacity_ / 2; //divides by 2
         T* newData = new T[newCapacity];
 
         for (std::size_t i = 0; i < size_; ++i)
@@ -173,17 +182,33 @@ void ABDQ<T>::pushBack(const T& item) {
         back_ = size_;
     }
 
-    data_[back_] = item;
-    back_ = (back_ + 1) % capacity_;
-    ++size_;
+    return val;
 }
 
 template <typename T>
-T ABDQ<T>::popFront() {
+T ABDQ<T>::popBack() {
     if (size_ == 0) throw std::runtime_error("deque empty");
-    T val = data_[front_];
-    front_ = (front_ + 1) % capacity_;
+
+    back_ = (back_ + capacity_ - 1) % capacity_;
+    T val = data_[back_];
     --size_;
+
+    // same thing
+    if (size_ <= capacity_ / 4 && capacity_ > 1) {
+
+        std::size_t newCapacity = capacity_ / 2; //divides by 2
+        T* newData = new T[newCapacity];
+
+        for (std::size_t i = 0; i < size_; ++i)
+            newData[i] = data_[(front_ + i) % capacity_];
+
+        delete[] data_;
+        data_ = newData;
+        capacity_ = newCapacity;
+        front_ = 0;
+        back_ = size_;
+    }
+
     return val;
 }
 
