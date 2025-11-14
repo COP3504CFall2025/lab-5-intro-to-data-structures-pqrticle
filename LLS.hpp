@@ -39,14 +39,14 @@ void LLS<T>::push(const T& item) {
 template<typename T>
 T LLS<T>::pop() {
     if (list.getSize() == 0)
-        throw std::out_of_range("stack empty"); //had to look this up https://www.geeksforgeeks.org/cpp/how-to-throw-an-exception-in-cpp/
+        throw std::runtime_error("stack empty"); //had to look this up https://www.geeksforgeeks.org/cpp/how-to-throw-an-exception-in-cpp/
     return list.popFront();
 }
 
 template<typename T>
 T LLS<T>::peek() const {
     if (list.getSize() == 0)
-        throw std::out_of_range("stack empty"); // https://www.geeksforgeeks.org/cpp/how-to-throw-an-exception-in-cpp/
+        throw std::runtime_error("stack empty"); // https://www.geeksforgeeks.org/cpp/how-to-throw-an-exception-in-cpp/
     return list.getHead()->data;
 }
 

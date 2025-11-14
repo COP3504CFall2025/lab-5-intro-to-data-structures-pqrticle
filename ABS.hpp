@@ -134,7 +134,7 @@ array_[curr_size_++] = data;
 template<typename T>
 T ABS<T>::pop() {
     if (curr_size_ == 0)
-        throw std::out_of_range("Stack is empty");
+        throw std::runtime_error("Stack is empty");
     --curr_size_;
     return array_[curr_size_];
 }
@@ -142,7 +142,7 @@ T ABS<T>::pop() {
 template<typename T>
 T ABS<T>::peek() const {
     if (curr_size_ == 0)
-        throw std::out_of_range("Stack is empty");
+        throw std::runtime_error("Stack is empty");
     return array_[curr_size_ - 1];
 }
 

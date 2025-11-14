@@ -135,7 +135,7 @@ void ABQ<T>::enqueue(const T& data) {
 template<typename T>
 T ABQ<T>::dequeue() {
     if (curr_size_ == 0)
-        throw std::out_of_range("Queue is empty");
+        throw std::runtime_error("Queue is empty");
 
     T result = array_[0];
 
@@ -150,7 +150,7 @@ T ABQ<T>::dequeue() {
 template<typename T>
 T ABQ<T>::peek() const {
     if (curr_size_ == 0)
-        throw std::out_of_range("Queue is empty");
+        throw std::runtime_error("Queue is empty");
     return array_[0];
 }
 

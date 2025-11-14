@@ -55,7 +55,7 @@ void LLDQ<T>::pushBack(const T& item) {
 template <typename T>
 T LLDQ<T>::popFront() {
     if (list.getSize() == 0) {
-        throw std::out_of_range("Deque empty");
+        throw std::runtime_error("Deque empty");
     }
     return list.popFront();
 }
@@ -63,7 +63,7 @@ T LLDQ<T>::popFront() {
 template <typename T>
 T LLDQ<T>::popBack() {
     if (list.getSize() == 0) {
-        throw std::out_of_range("Deque empty");
+        throw std::runtime_error("Deque empty");
     }
     return list.popBack();
 }
@@ -71,7 +71,7 @@ T LLDQ<T>::popBack() {
 template <typename T>
 const T& LLDQ<T>::front() const {
     if (list.getSize() == 0) {
-        throw std::out_of_range("Deque empty");
+        throw std::runtime_error("Deque empty");
     }
     return list.getHead()->data;
 }
@@ -79,7 +79,7 @@ const T& LLDQ<T>::front() const {
 template <typename T>
 const T& LLDQ<T>::back() const {
     if (list.getSize() == 0) {
-        throw std::out_of_range("Deque empty");
+        throw std::runtime_error("Deque empty");
     }
     return list.getTail()->data;
 }

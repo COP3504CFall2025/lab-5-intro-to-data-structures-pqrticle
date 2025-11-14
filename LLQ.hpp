@@ -44,7 +44,7 @@ void LLQ<T>::enqueue(const T& item) {
 template <typename T>
 T LLQ<T>::dequeue() {
     if (list.getSize() == 0) {
-        throw std::out_of_range("queue empty"); //mentioned earlier in LLS but i used https://www.geeksforgeeks.org/cpp/how-to-throw-an-exception-in-cpp/
+        throw std::runtime_error("queue empty"); //mentioned earlier in LLS but i used https://www.geeksforgeeks.org/cpp/how-to-throw-an-exception-in-cpp/
     }
     return list.popFront();
 }
@@ -52,7 +52,7 @@ T LLQ<T>::dequeue() {
 template <typename T>
 T LLQ<T>::peek() const {
     if (list.getSize() == 0) {
-        throw std::out_of_range("Queue empty"); //https://www.geeksforgeeks.org/cpp/how-to-throw-an-exception-in-cpp/
+        throw std::runtime_error("Queue empty"); //https://www.geeksforgeeks.org/cpp/how-to-throw-an-exception-in-cpp/
     }
     return list.getHead()->data;
 }
