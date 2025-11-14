@@ -46,9 +46,6 @@ public:
 
     void PrintForward() const; //added myself
     void PrintReverse() const;
-
-    std::size_t getMaxCapacity() const noexcept; // seems like i need this
-
 };
 
 template <typename T>
@@ -191,8 +188,8 @@ T ABDQ<T>::popFront() {
 
     // i made this to fix the sizing problem directly
     if (size_ <= capacity_ / 4 && capacity_ > 1) {
-
-        std::size_t newCapacity = capacity_ / 2; //divides by 2
+        std::size_t newCapacity = std::max(size_, std::size_t(1));
+        newCapacity = capacity_ / 2; // shrink by half
         T* newData = new T[newCapacity];
 
         for (std::size_t i = 0; i < size_; ++i)
@@ -218,8 +215,8 @@ T ABDQ<T>::popBack() {
 
     // same thing
     if (size_ <= capacity_ / 4 && capacity_ > 1) {
-
-        std::size_t newCapacity = capacity_ / 2; //divides by 2
+        std::size_t newCapacity = std::max(size_, std::size_t(1));
+        newCapacity = capacity_ / 2; // shrink by half
         T* newData = new T[newCapacity];
 
         for (std::size_t i = 0; i < size_; ++i)
@@ -265,10 +262,4 @@ template <typename T>
 void ABDQ<T>::PrintReverse() const {
     for (std::size_t i = 0; i < size_; ++i)
         std::cout << data_[(back_ + capacity_ - 1 - i) % capacity_] << "\n";
-}
-
-//ig i need to add this based off what gradescope shows
-template <typename T>
-std::size_t ABDQ<T>::getMaxCapacity() const noexcept {
-    return capacity_;
 }
