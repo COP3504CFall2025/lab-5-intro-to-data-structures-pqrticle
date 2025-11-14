@@ -19,7 +19,7 @@ public:
     ABS& operator=(const ABS& rhs); //done
     ABS(ABS&& other) noexcept;//done
     ABS& operator=(ABS&& rhs) noexcept; //done
-    virtual ~ABS() noexcept override; //realized i needed to make virtual
+    ~ABS() noexcept; //done
 
     // Get the number of items in the ABS
     [[nodiscard]] size_t getSize() const noexcept override; //done

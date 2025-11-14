@@ -12,7 +12,7 @@ public:
 	void printReverse() const; //done
 
 	// Accessors
-	[[nodiscard]] unsigned int getCount() const; //done
+	[[nodiscard]] unsigned int getSize() const; //done
 	
 	typename LinkedList<T>::Node* getHead(); // i had to manually update these 4 caues it kept throwing an error
 	const typename LinkedList<T>::Node* getHead() const;
@@ -37,6 +37,12 @@ public:
 	LinkedList(const LinkedList<T>& list); //done
 	LinkedList(LinkedList<T>&& other) noexcept; //done
 	~LinkedList(); //done
+
+	void pushFront(const T& item) { addHead(item); } //this wasnt in the insturctions but from gradescope it looks like i need this
+	void pushBack(const T& item) { addTail(item); }
+
+	T popFront(); // I had to look this up i didnt get what i was supposed to do https://learn.microsoft.com/en-us/cpp/cpp/templates-cpp?view=msvc-170
+	T popBack(); // again i swear this wasnt in the github instructions
 
 	struct Node {
 		T data;
@@ -212,7 +218,7 @@ void LinkedList<T>::Clear() {
 }
 
 template <typename T>
-unsigned int LinkedList<T>::getCount() const {
+unsigned int LinkedList<T>::getSize() const {
 	return count;
 }
 
@@ -258,4 +264,25 @@ void LinkedList<T>::printReverse() const {
 	}
 
 	cout << endl;
+}
+
+// I used this for the below: https://learn.microsoft.com/en-us/cpp/cpp/templates-cpp?view=msvc-170
+template <typename T>
+T LinkedList<T>::popFront() {
+    if (!head) {
+        throw std::runtime_error("List is empty");
+    }
+    T value = head->data;
+    removeHead();
+    return value;
+}
+
+template <typename T>
+T LinkedList<T>::popBack() {
+    if (!tail) {
+        throw std::runtime_error("List is empty");
+    }
+    T value = tail->data;
+    removeTail();
+    return value;
 }

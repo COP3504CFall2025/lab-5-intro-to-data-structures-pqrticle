@@ -26,7 +26,7 @@ public:
     ABDQ(ABDQ&& other) noexcept;
     ABDQ& operator=(const ABDQ& other);
     ABDQ& operator=(ABDQ&& other) noexcept;
-    virtual ~ABDQ() override; //made virtual
+    ~ABDQ();
 
     // Insertion
     void pushFront(const T& item) override;

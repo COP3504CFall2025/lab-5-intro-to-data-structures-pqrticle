@@ -25,7 +25,7 @@ public:
     ABQ& operator=(const ABQ& rhs); //done
     ABQ(ABQ&& other) noexcept; //done
     ABQ& operator=(ABQ&& rhs) noexcept; //done
-    virtual ~ABQ() noexcept override; //made virtual
+    ~ABQ() noexcept; //done
 
     // Getters
     [[nodiscard]] size_t getSize() const noexcept override; //done
