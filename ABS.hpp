@@ -3,6 +3,8 @@
 #include <cstddef>
 #include <stdexcept>
 #include "Interfaces.hpp"
+#include <iostream>
+
 
 // Technically bad, but size_t isn't likely to conflict with any client code.
 using std::size_t;
@@ -17,7 +19,7 @@ public:
     ABS& operator=(const ABS& rhs); //done
     ABS(ABS&& other) noexcept;//done
     ABS& operator=(ABS&& rhs) noexcept; //done
-    ~ABS() noexcept override; //done
+    virtual ~ABS() noexcept override; //realized i needed to make virtual
 
     // Get the number of items in the ABS
     [[nodiscard]] size_t getSize() const noexcept override; //done

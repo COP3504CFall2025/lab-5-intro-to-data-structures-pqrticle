@@ -4,6 +4,8 @@
 #include <stdexcept>
 #include "Interfaces.hpp"
 #include <utility>
+#include <iostream>
+
 
 template <typename T>
 class ABDQ : public DequeInterface<T> {
@@ -24,7 +26,7 @@ public:
     ABDQ(ABDQ&& other) noexcept;
     ABDQ& operator=(const ABDQ& other);
     ABDQ& operator=(ABDQ&& other) noexcept;
-    ~ABDQ() override;
+    virtual ~ABDQ() override; //made virtual
 
     // Insertion
     void pushFront(const T& item) override;

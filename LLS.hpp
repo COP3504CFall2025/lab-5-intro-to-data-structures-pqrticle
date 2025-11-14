@@ -4,6 +4,8 @@
 #include "LinkedList.hpp"
 #include <stdlib.h>
 #include <stdexcept>
+#include <iostream>
+
 
 template <typename T>
 class LLS : public StackInterface<T> {

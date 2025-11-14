@@ -3,6 +3,8 @@
 #include <cstddef>
 #include <stdexcept>
 #include "Interfaces.hpp"
+#include <iostream>
+
 
 // Technically bad, but size_t isn't likely to conflict with any client code.
 using std::size_t;
@@ -23,7 +25,7 @@ public:
     ABQ& operator=(const ABQ& rhs); //done
     ABQ(ABQ&& other) noexcept; //done
     ABQ& operator=(ABQ&& rhs) noexcept; //done
-    ~ABQ() noexcept override; //done
+    virtual ~ABQ() noexcept override; //made virtual
 
     // Getters
     [[nodiscard]] size_t getSize() const noexcept override; //done
